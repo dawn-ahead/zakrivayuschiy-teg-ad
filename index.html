@@ -540,7 +540,7 @@
 					</div>
 				</div>
 			</div>
-			        <button
+			              <button
             type="button"
             id="save-button"
             class="button__save button"
@@ -566,23 +566,41 @@
     </dialog>
     <script src="./scripts/like.js"></script>
     <script>
-        const saveBtn = document.getElementById('save-button');
-        const modal = document.getElementById('save__modal');
-        const okBtn = document.getElementById('ok-button');
-        
-        if (saveBtn && modal) {
-            saveBtn.addEventListener('click', function(event) {
-                event.preventDefault();
-                modal.showModal();
-            });
-        }
-        
-        if (okBtn && modal) {
-            okBtn.addEventListener('click', function(event) {
-                event.preventDefault();
-                modal.close();
-            });
-        }
+        (function() {
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+            
+            function init() {
+                const saveBtn = document.getElementById('save-button');
+                const modal = document.getElementById('save__modal');
+                const okBtn = document.getElementById('ok-button');
+                
+                if (saveBtn && modal) {
+                    const newSaveBtn = saveBtn.cloneNode(true);
+                    saveBtn.parentNode.replaceChild(newSaveBtn, saveBtn);
+                    newSaveBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        modal.showModal();
+                        return false;
+                    });
+                }
+                
+                if (okBtn && modal) {
+                    const newOkBtn = okBtn.cloneNode(true);
+                    okBtn.parentNode.replaceChild(newOkBtn, okBtn);
+                    newOkBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        modal.close();
+                        return false;
+                    });
+                }
+            }
+        })();
     </script>
 </body>
 </html>
