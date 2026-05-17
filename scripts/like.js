@@ -38,3 +38,22 @@ function setButtonText(heart, button) {
     );
   }
 }
+
+// Управление popup
+const saveButton = document.getElementById('save-button');
+const popup = document.getElementById('popup-id');
+const okButton = document.getElementById('ok-button');
+
+if (saveButton && popup) {
+  saveButton.addEventListener('click', (event) => {
+    event.preventDefault(); // Предотвращаем любые действия по умолчанию
+    popup.showModal();
+  });
+}
+
+if (okButton && popup) {
+  okButton.addEventListener('click', (event) => {
+    event.preventDefault(); // Предотвращаем любые действия по умолчанию
+    popup.close();
+  });
+}
