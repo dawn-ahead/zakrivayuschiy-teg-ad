@@ -7,6 +7,7 @@
 ✦ button__text — для обозначения текстового элемента внутри кнопки
 Если эти классы поменять в HTML, скрипт перестанет работать. Будьте аккуратны.
 */
+
 const likeHeartArray = document.querySelectorAll('.like-icon');
 const likeButtonArray = document.querySelectorAll('.card__like-button');
 const iconButtonArray = document.querySelectorAll('.card__icon-button');
@@ -37,23 +38,4 @@ function setButtonText(heart, button) {
       500
     );
   }
-}
-
-// Управление popup
-const saveButton = document.getElementById('save-button');
-const popup = document.getElementById('popup-id');
-const okButton = document.getElementById('ok-button');
-
-if (saveButton && popup) {
-  saveButton.addEventListener('click', (event) => {
-    event.preventDefault(); // Предотвращаем любые действия по умолчанию
-    popup.showModal();
-  });
-}
-
-if (okButton && popup) {
-  okButton.addEventListener('click', (event) => {
-    event.preventDefault(); // Предотвращаем любые действия по умолчанию
-    popup.close();
-  });
 }
