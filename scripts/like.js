@@ -35,14 +35,3 @@ function setButtonText(heart, button) {
     setTimeout(() => (buttonText.textContent = 'Like'), 500);
   }
 }
-
-function setButtonText(heart, button) {
-  const buttonText = button.querySelector('.button__text');
-  if (!buttonText) return;
-  
-  if ([...heart.classList].includes('is-liked')) {
-    setTimeout(() => (buttonText.textContent = 'Unlike'), 500);
-  } else {
-    setTimeout(() => (buttonText.textContent = 'Like'), 500);
-  }
-}
