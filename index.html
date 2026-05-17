@@ -540,36 +540,49 @@
 					</div>
 				</div>
 			</div>
-			<button
-				type="button"
-				aria-controls="save__modal"
-				class="button__save button"
-				onclick="window['save__modal'].showModal()"
-			>
-				<svg class="floppy__icon" viewBox="0 0 39 39">
-					<use href="./svg/floppy.svg#floppy" />
-				</svg>
-				<span class="button__text">Сохранить на память</span>
-			</button>
-		</main>
-		<dialog class="save__modal" id="save__modal">
-			<div class="content__modal">
-				<div class="floppy__icon__wrapper">
-					<svg class="floppy__icon" viewBox="0 0 39 39">
-						<use href="./svg/floppy.svg#floppy" />
-					</svg>
-				</div>
-				<span class="modal__text">Вставьте дискету, чтобы продолжить</span>
-			</div>
-
-			<button
-    type="button"
-    class="button__OK button"
-    onclick="window['save__modal'].close()"
->
-    <span class="button__text">OK</span>
-</button>
-		</dialog>
-		<script src="./scripts/like.js"></script>
-	</body>
+			        <button
+            type="button"
+            id="save-button"
+            class="button__save button"
+        >
+            <svg class="floppy__icon" viewBox="0 0 39 39">
+                <use href="./svg/floppy.svg#floppy" />
+            </svg>
+            <span class="button__text">Сохранить на память</span>
+        </button>
+    </main>
+    <dialog class="save__modal" id="save__modal">
+        <div class="content__modal">
+            <div class="floppy__icon__wrapper">
+                <svg class="floppy__icon" viewBox="0 0 39 39">
+                    <use href="./svg/floppy.svg#floppy" />
+                </svg>
+            </div>
+            <span class="modal__text">Вставьте дискету, чтобы продолжить</span>
+        </div>
+        <button type="button" id="ok-button" class="button__OK button">
+            <span class="button__text">OK</span>
+        </button>
+    </dialog>
+    <script src="./scripts/like.js"></script>
+    <script>
+        const saveBtn = document.getElementById('save-button');
+        const modal = document.getElementById('save__modal');
+        const okBtn = document.getElementById('ok-button');
+        
+        if (saveBtn && modal) {
+            saveBtn.addEventListener('click', function(event) {
+                event.preventDefault();
+                modal.showModal();
+            });
+        }
+        
+        if (okBtn && modal) {
+            okBtn.addEventListener('click', function(event) {
+                event.preventDefault();
+                modal.close();
+            });
+        }
+    </script>
+</body>
 </html>
