@@ -551,42 +551,85 @@
             <span class="button__text">Сохранить на память</span>
         </button>
     </main>
-    <dialog class="save__modal" id="save__modal">
-        <div class="content__modal">
-            <div class="floppy__icon__wrapper">
-                <svg class="floppy__icon" viewBox="0 0 39 39">
-                    <use href="./svg/floppy.svg#floppy" />
-                </svg>
-            </div>
-            <span class="modal__text">Вставьте дискету, чтобы продолжить</span>
-        </div>
-        <button type="button" id="ok-button" class="button__OK button">
-            <span class="button__text">OK</span>
-        </button>
-    </dialog>
+    <!-- Кнопка "Сохранить на память" -->
+<button 
+  type="button" 
+  id="save-button" 
+  class="button__save button"
+  onclick="event.preventDefault(); event.stopPropagation(); return false;"
+>
+  <svg class="floppy__icon" viewBox="0 0 39 39">
+    <use href="./svg/floppy.svg#floppy" />
+  </svg>
+  <span class="button__text">Сохранить на память</span>
+</button>
+
+<!-- Модальное окно -->
+<dialog class="save__modal" id="save__modal">
+  <div class="content__modal">
+    <div class="floppy__icon__wrapper">
+      <svg class="floppy__icon" viewBox="0 0 39 39">
+        <use href="./svg/floppy.svg#floppy" />
+      </svg>
+    </div>
+    <span class="modal__text">Вставьте дискету, чтобы продолжить</span>
+  </div>
+  <!-- Кнопка OK -->
+  <button 
+    type="button" 
+    id="ok-button" 
+    class="button__OK button"
+    onclick="event.preventDefault(); event.stopPropagation(); return false;"
+  >
+    <span class="button__text">OK</span>
+  </button>
+</dialog>
 <script src="./scripts/like.js"></script>
     <script>
-  // Простая и надёжная инициализация модального окна
-  document.addEventListener('click', function(e) {
+  // Гарантированная защита от перезагрузки
+  (function protectButtons() {
     const modal = document.getElementById('save__modal');
-    if (!modal) return;
     
-    // Кнопка "Сохранить на память"
-    if (e.target.closest('#save-button')) {
-      e.preventDefault();
-      e.stopPropagation();
-      modal.showModal();
-      return false;
+    function safeShowModal() {
+      if (modal && typeof modal.showModal === 'function') {
+        try { modal.showModal(); } catch(e) {}
+      }
     }
     
-    // Кнопка "OK" внутри модального окна
-    if (e.target.closest('.button__OK')) {
-      e.preventDefault();
-      e.stopPropagation();
-      modal.close();
-      return false;
+    function safeCloseModal() {
+      if (modal && typeof modal.close === 'function') {
+        try { modal.close(); } catch(e) {}
+      }
     }
-  });
+    
+    // Делегирование на document в capture-фазе (самый ранний перехват)
+    document.addEventListener('click', function(e) {
+      if (e.target.closest('#save-button')) {
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        safeShowModal();
+        return false;
+      }
+      if (e.target.closest('.button__OK')) {
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        safeCloseModal();
+        return false;
+      }
+    }, { capture: true });
+    
+    // На всякий случай — перехват submit на всём документе
+    document.addEventListener('submit', function(e) {
+      if (e.target.querySelector('#save-button, .button__OK')) {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+      }
+    }, { capture: true });
+    
+  })();
 </script>
 </body>
 </html>
