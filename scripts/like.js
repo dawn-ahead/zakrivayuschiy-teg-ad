@@ -39,3 +39,40 @@ function setButtonText(heart, button) {
     );
   }
 }
+
+// Исправление перезагрузки для модального окна
+document.addEventListener('DOMContentLoaded', function() {
+    // Находим кнопку сохранения
+    const saveButton = document.querySelector('.button__save');
+    const modal = document.getElementById('save__modal');
+    
+    // Находим кнопку OK внутри модального окна
+    const okButton = modal ? modal.querySelector('.button__OK') : null;
+    
+    // Удаляем старые onclick атрибуты
+    if (saveButton) {
+        saveButton.removeAttribute('onclick');
+        saveButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (modal) {
+                modal.showModal();
+            }
+            return false;
+        });
+    }
+    
+    if (okButton) {
+        okButton.removeAttribute('onclick');
+        // Меняем type с submit на button
+        okButton.setAttribute('type', 'button');
+        okButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (modal) {
+                modal.close();
+            }
+            return false;
+        });
+    }
+});
