@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* Здесь вы напишете основную часть стилей страницы.
 
 Будьте внимательны! Для корректной работы скриптов на этом сайте нужно, чтобы в HTML некоторые классы были названы особым образом:
@@ -9,281 +10,252 @@
 ✦ button__text — для обозначения текстового элемента внутри кнопки
 
 */
+.button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--border-color);
+  background: var(--background-color);
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+  overflow: hidden;
+}
+.button .floppy__icon {
+  color: var(--background-color);
+  mix-blend-mode: difference;
+}
+.button .button__text {
+  z-index: 100;
+  font-family: var(--ps2p-font, "sans-serif");
+  font-size: 14px;
+  line-height: 90%;
+  color: var(--background-color);
+  mix-blend-mode: difference;
+}
+.button::after {
+  content: "";
+  position: absolute;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--border-color);
+  transition: left 0.3s ease;
+}
+.button:hover::after {
+  left: 0;
+}
+.button:hover .floppy__icon {
+  z-index: 100;
+}
+.button:focus {
+  box-shadow: 2px 2px 0 var(--border-color);
+}
 
 .page {
-  font-family: var(--main-font);
-  background-image: var(--background-color);
-  background-size: cover;
-  background-attachment: fixed;
   min-inline-size: 320px;
   min-block-size: 100dvb;
-  font-variation-settings: "wght" var(--font-weight-regular);
+  font-family: var(--inter-font, "sans-serif");
+  font-variation-settings: "wght" var(--card-text-width), "wdth" 100;
+  background: var(--main-background-color);
+  background-size: cover;
+  background-attachment: fixed;
+  background-blend-mode: hard-light;
 }
 
 .header {
+  font-family: var(--ps2p-font, "sans-serif");
+  margin: 100px auto;
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  max-width: 700px;
+  height: 368px;
+  background: var(--background-color);
+  border: 2px solid var(--border-color);
 }
-
-.header__wrapper {
-  margin: 100px 0;
-  border: 2px solid var(--Themes-mainColor, #000000);
-  color: var(--Themes-mainColor, #000000);
-  font-family: var(--accent-font);
-  text-align: center;
-  background-color: var(--Themes-background, #ffffff);
-  inline-size: clamp(23.438rem, 17.634rem + 29.018vi, 43.75rem);
-  block-size: clamp(20.438rem, 19.705rem + 3.661vi, 23rem);
+.header h1 {
+  font-size: 65px;
+  font-weight: normal;
 }
-
-.header__title {
-  padding-top: clamp(7.5rem, 7rem + 1.6vi, 8rem);
-  font-size: clamp(3.063rem, 2.063rem + 3.2vi, 4.063rem);
-  text-transform: uppercase;
-}
-
-.header__subtitle {
-  padding-top: 20px;
-  font-size: clamp(0.875rem, 0.313rem + 1.8vi, 1.438rem);
+.header h2 {
+  font-size: 23px;
+  font-weight: normal;
+  margin-top: 20px;
   text-transform: uppercase;
 }
 
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 53px;
-  padding-bottom: 103px;
+  max-width: 700px;
+  margin: 0 auto;
 }
 
-.cards__list {
-  display: grid;
-  gap: 51px;
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
 }
-
-.card {
-  border: 2px solid var(--Themes-mainColor, #000000);
+.cards .card {
+  display: flex;
+  flex-direction: column;
+  background: var(--background-color);
 }
-
-.card__item {
-  background-color: var(--Themes-background, #ffffff);
-  max-inline-size: 696px;
-}
-
-.card__title {
-  border-bottom: 2px solid var(--Themes-mainColor, #000000);
+.cards .card .card__header {
   padding: 5px 10px;
-  font-size: 18px;
-  line-height: 21.78px;
-  font-variation-settings: "wght" var(--font-weight-bold);
+  border: 2px solid var(--border-color);
 }
-
-.image__wrapper {
+.cards .card .card__header .card__header-heading {
+  font-size: 18px;
+  font-variation-settings: "wght" var(--card-headers-width);
+}
+.cards .card .card__img {
+  border-left: 2px solid var(--border-color);
+  border-right: 2px solid var(--border-color);
   position: relative;
 }
-
-.card__image {
+.cards .card .card__img img {
+  width: 100%;
   display: block;
-  object-fit: cover;
-  object-position: center;
-  aspect-ratio: 1 / 1;
-  inline-size: 100%;
 }
-
-.label__text {
+.cards .card .card__img .card__img-text {
+  font-family: var(--ps2p-font, "sans-serif");
   position: absolute;
   top: 25px;
   right: 25px;
-  color: var(--Themes-mainColor, #000000);
-  font-family: var(--accent-font);
+  opacity: 50%;
   font-size: 14px;
-  text-shadow: -1px 0 var(--Themes-background, #ffffff),
-    0 1px var(--Themes-background, #ffffff),
-    1px 0 var(--Themes-background, #ffffff),
-    0 -1px var(--Themes-background, #ffffff);
-  mix-blend-mode: hard-light;
+  text-shadow: -1px 0 var(--stroke-color), 0 1px var(--stroke-color), 1px 0 var(--stroke-color), 0 -1px var(--stroke-color);
 }
-
-@supports (text-stroke: 1px var(--Themes-background, #ffffff)) or
-  (-webkit-text-stroke: 1px var(--Themes-background, #ffffff)) {
-  .label_text {
-    text-shadow: none;
-    -webkit-text-stroke: 1px var(--Themes-background, #ffffff);
-  }
-}
-
-.card__text-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 27px;
-  border-top: 2px solid var(--Themes-mainColor, #000000);
+.cards .card .card__footer {
   padding: 25px;
+  border: 2px solid var(--border-color);
 }
-
-.card__text {
-  font-size: 18px;
+.cards .card .card__footer .card__footer-text {
   line-height: 21px;
+  font-size: 18px;
 }
-
-.card__buttons {
+.cards .card .card__footer .card__footer-text:not(:last-child) {
+  margin-bottom: 27px;
+}
+.cards .card .card__footer .card__footer-buttons {
+  margin-top: 25px;
   display: flex;
-  flex-direction: row;
   justify-content: end;
-  align-items: center;
-  gap: 5px;
-  padding: 0 25px 25px 0;
+  gap: 8px;
 }
-
-.card__icon-button {
-  border: 2px solid transparent;
-  padding: 0;
-  background-color: inherit;
-  cursor: pointer;
-  block-size: 36px;
+.cards .card .card__footer .card__footer-buttons .card__like-button {
+  width: 130px;
+  height: 38px;
 }
-
-.card__like-button {
-  padding: 8px 0px;
-  inline-size: 130px;
-}
-
-.button__text {
-  position: relative;
-  z-index: 1;
-  color: var(--Themes-background, #ffffff);
+.cards .card .card__footer .card__footer-buttons .card__like-button .button__text {
+  font-family: var(--ps2p-font, "sans-serif");
   font-size: 14px;
-  mix-blend-mode: difference;
+  line-height: 90%;
 }
 
-.button__popup-open {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 7px;
-  padding: 14px 20px;
+.button__save {
+  max-width: 335px;
+  width: 335px;
+  margin: 52px auto 100px;
+  min-height: 51px;
+  gap: 8px;
+}
+.button__save .floppy__icon {
+  width: 21px;
+  height: 21px;
+}
+
+.save__modal {
+  position: fixed;
+  inset: 0;
+  max-width: 353px;
+  width: 353px;
+  padding: 30px;
+  font-family: var(--ps2p-font, "sans-serif");
   font-size: 14px;
-  line-height: 12.6px;
+  line-height: 90%;
+  border: 2px solid var(--border-color);
 }
-
-.button {
-  position: relative;
-  border: 2px solid var(--Themes-mainColor, #000000);
-  overflow: hidden;
-  font-family: var(--accent-font);
-  background-color: var(--Themes-background, #ffffff);
-  cursor: pointer;
+.save__modal::backdrop {
+  background: var(--background-modal-color);
+  opacity: 75%;
 }
-
-.button::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: var(--Themes-mainColor, #000000);
-  transition: 0.5s ease-in-out;
-  transform: translateX(-100%);
-  inline-size: 100%;
-  block-size: 100%;
-}
-
-.popup::backdrop {
-  opacity: 0.75;
-  background-color: var(--Themes-mainColor, #000000);
-}
-
-.popup[open] {
+.save__modal .content__modal {
   display: flex;
-}
-
-.popup {
-  flex-direction: column;
-  gap: 30px;
-  padding: 30px 27px;
-  inline-size: clamp(21.313rem, 21.098rem + 1.071vi, 22.063rem);
-}
-
-.popup__text-open {
-  display: flex;
-  align-items: center;
+  margin-bottom: 30px;
   gap: 20px;
 }
-
-.floppy {
-  flex-shrink: 0;
+.save__modal .content__modal .floppy__icon__wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
-.icon-floppy {
-  color: var(--Themes-background, #ffffff);
-  mix-blend-mode: difference;
+.save__modal .content__modal .floppy__icon__wrapper .floppy__icon {
+  width: 39px;
+  height: 39px;
 }
-
-.text__popup {
-  font-family: var(--accent-font);
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 21px;
+.save__modal .content__modal .modal__text {
+  line-height: 150%;
   text-transform: uppercase;
 }
-
-.button__popup-close {
-  padding: 10px 0;
-  font-size: 14px;
-  text-transform: uppercase;
+.save__modal .button__OK {
+  width: 100%;
+  height: 38px;
 }
 
-.filter__blur {
-  filter: blur(10px);
+.image2 {
+  filter: grayscale(80%);
 }
 
-.filter__brightness {
-  filter: brightness(200%);
+.image3 {
+  filter: saturate(400%);
 }
 
-.filter__contrast {
-  filter: contrast(250%);
+.image4 {
+  filter: hue-rotate(25deg);
 }
 
-.filter__sepia {
-  filter: sepia(0.8);
+.image5 {
+  filter: invert(100%);
 }
 
-.filter__grayscale {
-  filter: grayscale(70%);
+.image6 {
+  filter: sepia(80%);
 }
 
-.filter__hue-rotate {
-  filter: hue-rotate(50deg);
+.image7 {
+  filter: blur(20px);
 }
 
-.filter__mix {
-  filter: saturate(300%) grayscale(80%) invert(90%);
+.image8 {
+  filter: blur(3px) hue-rotate(70deg) sepia(50%);
 }
 
-@media (width <= 375px) {
-  .header-mobile {
-    inline-size: 100%;
+@supports (text-stroke: 1px var(--stroke-color)) or (-webkit-text-stroke: 1px var(--stroke-color)) {
+  .card__text {
+    text-stroke: 1px var(--stroke-color);
+    -webkit-text-stroke: 1px var(--stroke-color);
   }
-
-  .card__item {
-    inline-size: 100%;
+}
+@media (max-width: 500px) {
+  .header h1 {
+    font-size: 49px;
   }
-
-  .button__popup-open {
+  .header h2 {
+    font-size: 14px;
+  }
+  .button__save {
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    padding: 15px 20px;
   }
-
-  .icon-floppy {
-    inline-size: 28px;
-    block-size: 28px;
+  .button__save .floppy__icon {
+    width: 28px;
+    height: 28px;
   }
-
-  .label__text {
-    top: 19px;
-    right: 10px;
-  }
-}
+}/*# sourceMappingURL=style.css.map */
