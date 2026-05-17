@@ -564,44 +564,29 @@
             <span class="button__text">OK</span>
         </button>
     </dialog>
-    <script src="./scripts/fix.js"></script>
 <script src="./scripts/like.js"></script>
     <script>
-        (function() {
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', init);
-            } else {
-                init();
-            }
-            
-            function init() {
-                const saveBtn = document.getElementById('save-button');
-                const modal = document.getElementById('save__modal');
-                const okBtn = document.getElementById('ok-button');
-                
-                if (saveBtn && modal) {
-                    const newSaveBtn = saveBtn.cloneNode(true);
-                    saveBtn.parentNode.replaceChild(newSaveBtn, saveBtn);
-                    newSaveBtn.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        modal.showModal();
-                        return false;
-                    });
-                }
-                
-                if (okBtn && modal) {
-                    const newOkBtn = okBtn.cloneNode(true);
-                    okBtn.parentNode.replaceChild(newOkBtn, okBtn);
-                    newOkBtn.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        modal.close();
-                        return false;
-                    });
-                }
-            }
-        })();
-    </script>
+  // Простая и надёжная инициализация модального окна
+  document.addEventListener('click', function(e) {
+    const modal = document.getElementById('save__modal');
+    if (!modal) return;
+    
+    // Кнопка "Сохранить на память"
+    if (e.target.closest('#save-button')) {
+      e.preventDefault();
+      e.stopPropagation();
+      modal.showModal();
+      return false;
+    }
+    
+    // Кнопка "OK" внутри модального окна
+    if (e.target.closest('.button__OK')) {
+      e.preventDefault();
+      e.stopPropagation();
+      modal.close();
+      return false;
+    }
+  });
+</script>
 </body>
 </html>
